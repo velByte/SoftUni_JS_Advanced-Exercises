@@ -1,0 +1,11 @@
+01.EvenPositionElements.js
+02.LastKNumbersSequence.js
+03.SumFirstLast.js
+04.Negative/PositiveNumbers.js
+05.SmallestTwoNumbers.js
+06.BiggerHalf.js
+07.PieceofPie.js
+08.ProcessOddPositions.js
+09.BiggestElement.js
+10.DiagonalSums.js
+11.EqualNeighbors.js
