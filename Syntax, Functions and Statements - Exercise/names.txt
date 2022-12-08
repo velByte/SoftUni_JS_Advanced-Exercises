@@ -1,0 +1,9 @@
+01.Fruit.js
+02.GreatestCommonDivisor–GCD.js
+03.SameNumbers.js
+04.PreviousDay.js
+05.TimetoWalk.js
+06.RoadRadar.js
+07.CookingbyNumbers.js
+08.ValidityChecker.js
+09.WordsUppercase.js
