@@ -1,14 +1,15 @@
-function solve(number) {
-    let numArr = number.toString().split("");
-    let arrSum = 0; 
-    for (let i = 0; i < numArr.length; i++) {
-        arrSum += Number(numArr[i]);
+function solve(number, digit = number % 10, sum = number.toString().split('').reduce((a, b) => Number(a) + Number(b), 0)) {
+    if (number == 0) {
+        console.log(true);
+        console.log(sum);
+        return;
     }
-    let mussBe = numArr.length * numArr[0];
-
-    console.log(arrSum === mussBe);
-    console.log(arrSum);
-
+    if (number % 10 != digit) {
+        console.log(false);
+        console.log(sum);
+        return;
+    }
+    return solve(Math.floor(number / 10), digit, sum);
 }
 
-solve(22222222)
+solve(2222222)

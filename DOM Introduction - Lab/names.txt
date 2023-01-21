@@ -1,0 +1,7 @@
+01.EditElement.js
+02.CollectList.js
+03.SumNumbers.js
+04.ShowMore.js
+05.ColorizeTable.js
+06.SumTable.js
+07.ExtractParenthesis.js
