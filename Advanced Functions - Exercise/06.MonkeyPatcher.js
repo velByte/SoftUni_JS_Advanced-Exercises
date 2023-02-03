@@ -1,7 +1,9 @@
 function monkeyPatch(action) {
     const actions = {
         upvote: () => {
-            this.upvotes++
+            let current = this.upvotes;
+            current++;
+            this.upvotes = current;
         },
         downvote: () => {
             let current = this.downvotes;
@@ -56,35 +58,18 @@ function monkeyPatch(action) {
         }
 
         let total = up + down;
-        let obfuscated = Math.ceil(0.25 * Math.max(up, down));
-        let obfuscatedUpVotes = up + down;
-        let obfuscatedDownVotes = up + down;
-        let balance = obfuscatedUpVotes - obfuscatedDownVotes;
+        let balance = up - down;
         let currentRaiting = "";
 
-
-
-        if (total < 10) {
-            currentRaiting = raitings.new;
-        } else if (up > total * 0.66) {
+        if ((up / (up + down) > 0.66) && (balance >= 0) && (total >= 10)) {
             currentRaiting = raitings.hot;
-        } else if (balance >= 0 && (up > 100 || down > 100)) {
+        } else if ((balance >= 0) && (total > 100)) {
             currentRaiting = raitings.controversial;
-        } else if (balance < 0) {
+        } else if (balance < 0 && total >= 10) {
             currentRaiting = raitings.unpopular;
         } else {
             currentRaiting = raitings.new;
         }
-
-        // if ((up / (up + down) > 0.66) && (balance >= 0) && (total >= 10)) {
-        //     currentRaiting = raitings.hot;
-        // } else if ((balance >= 0) && (total > 100)) {
-        //     currentRaiting = raitings.controversial;
-        // } else if (balance < 0) {
-        //     currentRaiting = raitings.unpopular;
-        // } else {
-        //     currentRaiting = raitings.new;
-        // }
 
         return {
             balance,
@@ -94,16 +79,3 @@ function monkeyPatch(action) {
 
     return actions[action]();
 }
-
-let post = {
-    id: '1',
-    author: 'pesho',
-    content: 'hi guys',
-    upvotes: 0,
-    downvotes: 0
-};
-
-monkeyPatch.call(post, "upvote")
-console.log(monkeyPatch.call(post, "score"));
-
-
