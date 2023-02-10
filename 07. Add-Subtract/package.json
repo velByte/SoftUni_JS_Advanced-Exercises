@@ -1,0 +1,16 @@
+{
+  "name": "07.-add-subtract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "add-subtract.js",
+  "scripts": {
+    "test": "mocha add-subtract.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0"
+  }
+}
