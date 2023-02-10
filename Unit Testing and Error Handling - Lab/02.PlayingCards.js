@@ -11,7 +11,6 @@ function playingCard(face, suit){
     }
 
     class Card{
-
         constructor(face, suit){
             this.face = face.toUpperCase();
             this.suit = suitsChars[suit];
@@ -22,14 +21,11 @@ function playingCard(face, suit){
         }
     }
 
-
     if(!(validFace.includes(face.toUpperCase())) || !(suitsChars.hasOwnProperty(`${suit.toUpperCase()}`))){
         throw new Error('Error');
     }
 
     return new Card(face, suit)
-
-    
 }
 console.log(playingCard('A', 'S').toString());
 playingCard('10', 'H');
