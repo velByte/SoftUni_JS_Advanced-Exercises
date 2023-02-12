@@ -14,67 +14,84 @@ function validate() {
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
-        const username = document.getElementById('username');
-        const email = document.getElementById('email');
-        const password = document.getElementById('password');
-        const confirmPassword = document.getElementById('confirm-password');
+        
+        let userNameValid = () => {
+            const userName = document.getElementById('username');
+            const userNameRegex = /^[A-Za-z0-9]{3,20}$/;
+            return userNameRegex.test(userName.value);
+        };
 
-        const userNameIsValid = validateUsername(username.value);
-        const emailIsValid = validateEmail(email.value);
-        const passwordIsValid = validatePassword(password.value);
-        const confirmPasswordIsValid = validateComfirmPassword(password.value, confirmPassword.value);
+        let emailValid = () => {
+            const email = document.getElementById('email');
+            const emailRegex = /^.*@.*\..*$/;
+            return emailRegex.test(email.value);
+        };
 
-        username.style.border = userNameIsValid ? 'none' : '2px solid red';
-        email.style.border = emailIsValid ? 'none' : '2px solid red';
-        password.style.border = passwordIsValid ? 'none' : '2px solid red';
-        confirmPassword.style.border = confirmPasswordIsValid ? 'none' : '2px solid red';
+        let passwordValid = () => {
+            const password = document.getElementById('password');
+            const passwordRegex = /^\w{5,15}$/;
+            return passwordRegex.test(password.value);
+        };
 
-        let allValid = userNameIsValid && emailIsValid && passwordIsValid && confirmPasswordIsValid;
-
-        if (isCompanyCheckbox.checked) {
-            const companyNumber = document.getElementById('companyNumber');
-            const companyNumberIsValid = validateCompanyNumber(companyNumber.value);
-            companyNumber.style.border = companyNumberIsValid ? 'none' : '2px solid red';
-            if(!companyNumberIsValid){
-                allValid = false;
+        let confirmPasswordValid = () => {
+            const confirmPassword = document.getElementById('confirm-password');
+            const password = document.getElementById('password');
+            let valid = false;
+            if (password.value === confirmPassword.value && password.value !== '') {
+                valid = true;
             }
-        }
+            return valid;
+        };
 
-        if(allValid){
+        let companyNumberValid = () => {
+            const companyNumber = document.getElementById('companyNumber');
+            return companyNumber.value >= 1000 && companyNumber.value <= 9999;
+        };
+
+        let companyInfoValid = () => {
+            return isCompanyCheckbox.checked ? companyNumberValid() : true;
+        };
+
+        let allValid = () => {
+            return userNameValid() && emailValid() && passwordValid() && confirmPasswordValid() && companyInfoValid();
+        };
+
+        if (allValid()) {
             isValidDiv.style.display = 'block';
         } else {
             isValidDiv.style.display = 'none';
+        }   
+
+        if (userNameValid()) {
+            document.getElementById('username').style.borderColor = '';
+        } else {
+            document.getElementById('username').style.borderColor = 'red';
         }
 
+        if (emailValid()) {
+            document.getElementById('email').style.borderColor = '';
+        } else {
+            document.getElementById('email').style.borderColor = 'red';
+        }   
 
+        if (passwordValid() && confirmPasswordValid()) {
+            document.getElementById('password').style.borderColor = '';
+            document.getElementById('confirm-password').style.borderColor = '';
+        } else {
+            document.getElementById('password').style.borderColor = 'red';
+            document.getElementById('confirm-password').style.borderColor = 'red';
+            document.getElementById('confirm-password').style.borderColor = 'red';
+            document.getElementById('password').style.borderColor = 'red';
+        }   
+
+        if (companyInfoValid()) {
+            document.getElementById('companyNumber').style.borderColor = '';
+        } else {    
+            document.getElementById('companyNumber').style.borderColor = 'red';
+            console.log("Should be red");
+        }   
 
     });
 
-    function validateCompanyNumber(companyNumber) {
-        return companyNumber >= 1000 && companyNumber <= 9999;
-    };
-
-    function validatePassword(password){
-        let pattern = /([a-z0-9]{5,15})/
-        return pattern.test(password);
-    };
-
-    function validateComfirmPassword(password, confirmPassword){
-        let valid = false; 
-        if(password.length != 0){
-            valid = password === confirmPassword;
-        }
-        return valid;
-    }
-
-    function validateEmail(email) {
-        let pattern = /([a-z0-9]+)@([a-z]+)\.([a-z]{2,3})/;
-        return pattern.test(email);
-    }
-
-    function validateUsername(username){
-        let pattern = /([a-z0-9]{3,20})/
-        let valid = pattern.test(username) && username.length >= 3 && username.length <= 20;
-        return valid;
-    }
+    
 }

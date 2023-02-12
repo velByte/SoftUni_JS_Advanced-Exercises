@@ -8,4 +8,7 @@ function lookupChar(string, index) {
     return string.charAt(index);
   }
   
+  console.log(lookupChar("", 0));
+  console.log(lookupChar("", 1.1));
+
     module.exports = lookupChar;
