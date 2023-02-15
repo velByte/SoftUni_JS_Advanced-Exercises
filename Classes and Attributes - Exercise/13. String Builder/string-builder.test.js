@@ -1,11 +1,6 @@
-const {expect} = require('chai');
-
-const StringBuilder = require('./string-builder.js');
-
+const { expect } = require('chai');
+const StringBuilder = require('./string-builder');
 describe('StringBuilder', () => {
-
-    it("holds an characters ")
-
     it("Can be instantiated with a string argument", () => {
         let sb = new StringBuilder('hello');
         expect(sb.toString()).to.equal('hello');
@@ -199,5 +194,12 @@ describe('StringBuilder', () => {
         expect(sb.hasOwnProperty('_stringArray')).to.equal(true);
       });
       
-
+      it("Integration test", () => {
+        let sb = new StringBuilder('hello');
+        sb.append(', there');
+        sb.prepend('User, ');
+        sb.insertAt('woop', 5);
+        sb.remove(6, 3);
+        expect(sb.toString()).to.equal('User,w hello, there');
+      });
 });
