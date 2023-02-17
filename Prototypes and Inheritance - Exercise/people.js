@@ -49,7 +49,6 @@ function people() {
         Employee,
         Junior,
         Senior,
-        Manager
-    }
+        Manager   }
 }
 
